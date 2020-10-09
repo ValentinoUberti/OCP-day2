@@ -1,0 +1,42 @@
+apiVersion: machine.openshift.io/v1beta1
+kind: MachineSet
+metadata:
+  name: ocp-wx2xc-worker-ocs-0
+  generation: 1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      machine.openshift.io/cluster-api-cluster: ocp-wx2xc
+      machine.openshift.io/cluster-api-machineset: ocp-wx2xc-worker-ocs-0
+  template:
+    metadata:
+      labels:
+        machine.openshift.io/cluster-api-cluster: ocp-wx2xc
+        machine.openshift.io/cluster-api-machine-role: worker
+        machine.openshift.io/cluster-api-machine-type: worker
+        machine.openshift.io/cluster-api-machineset: ocp-wx2xc-worker-ocs-0
+    spec:
+      metadata: {}
+      providerSpec:
+        value:
+          cluster_id: 4bcbb626-c94c-11ea-b79b-00163e128f0d
+          userDataSecret:
+            name: worker-user-data
+          cpu:
+            cores: 4
+            sockets: 1
+            threads: 1
+          name: ''
+          credentialsSecret:
+            name: ovirt-credentials
+          metadata:
+            creationTimestamp: null
+          template_name: ocp-wx2xc-rhcos
+          memory_mb: 16348
+          kind: OvirtMachineProviderSpec
+          os_disk:
+            size_gb: 120
+          type: server
+          id: ''
+          apiVersion: ovirtproviderconfig.machine.openshift.io/v1beta1
